@@ -72,7 +72,9 @@ int main( int argc, char** argv )
             cv::waitKey(100);
         }
 
-        cvtColor( frame, frameGray, cv::COLOR_BGR2GRAY );
+        std::vector<cv::Mat> channels;
+        split(frame, channels);
+        frameGray = channels[0];
         GaussianBlur( frameGray, frameGray, cv::Size(9, 9), 2, 2 );
         std::vector<cv::Vec3f> circles;
         HoughCircles( frameGray, circles, cv::HOUGH_GRADIENT, 1, frameGray.rows/32, 240, 70, 5, 100 );
